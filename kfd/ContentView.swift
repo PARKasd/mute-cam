@@ -80,7 +80,25 @@ struct ContentView: View {
                         }.frame(minWidth: 0, maxWidth: .infinity)
                     }.listRowBackground(Color.clear)
                 }
+<<<<<<< Updated upstream
             }.navigationBarTitle(Text("kfd"), displayMode: .inline)
+=======
+                
+                Section(header: Text("Other Actions")) {
+                    Button("Hide Dock") {
+                        do_hidedock(kfd)
+                    }
+                    .buttonStyle(BorderlessButtonStyle())
+                    Button("Enable Dynamic Island") {
+                        gibmebar(kfd)
+                    }
+                    .buttonStyle(BorderlessButtonStyle())
+                    
+                }
+            }
+            .navigationBarTitle("Kernel Exploit", displayMode: .inline)
+            .accentColor(.green) // Highlight the navigation bar elements in green
+>>>>>>> Stashed changes
         }
     }
 }
