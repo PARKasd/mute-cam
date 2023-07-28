@@ -1,88 +1,83 @@
-/*
- * Copyright (c) 2023 Félix Poulin-Bélanger. All rights reserved.
- */
-
 import SwiftUI
 
 struct ContentView: View {
     @State private var kfd: UInt64 = 0
-
-    private var puaf_pages_options = [16, 32, 64, 128, 256, 512, 1024, 2048]
-    @State private var puaf_pages_index = 7
-    @State private var puaf_pages = 0
-
-    private var puaf_method_options = ["physpuppet", "smith"]
-    @State private var puaf_method = 1
-
-    private var kread_method_options = ["kqueue_workloop_ctl", "sem_open"]
-    @State private var kread_method = 1
-
-    private var kwrite_method_options = ["dup", "sem_open"]
-    @State private var kwrite_method = 1
     
+    @State private var puafPages = 2048
+    @State private var puafMethod = 1
+    @State private var kreadMethod = 1
+    @State private var kwriteMethod = 1
+    
+    var puafPagesOptions = [16, 32, 64, 128, 256, 512, 1024, 2048]
+    var puafMethodOptions = ["physpuppet", "smith"]
+    var kreadMethodOptions = ["kqueue_workloop_ctl", "sem_open"]
+    var kwriteMethodOptions = ["dup", "sem_open"]
     
     var body: some View {
         NavigationView {
             Form {
-                Section {
-                    Picker(selection: $puaf_pages_index, label: Text("puaf pages:")) {
-                        ForEach(0 ..< puaf_pages_options.count, id: \.self) {
-                            Text(String(self.puaf_pages_options[$0]))
+                Section(header: Text("Payload Settings")) {
+                    Picker("puaf pages:", selection: $puafPages) {
+                        ForEach(puafPagesOptions, id: \.self) { pages in
+                            Text(String(pages))
                         }
-                    }.disabled(kfd != 0)
-                }
-                Section {
-                    Picker(selection: $puaf_method, label: Text("puaf method:")) {
-                        ForEach(0 ..< puaf_method_options.count, id: \.self) {
-                            Text(self.puaf_method_options[$0])
+                    }.pickerStyle(SegmentedPickerStyle())
+                    .disabled(kfd != 0)
+                    
+                    Picker("puaf method:", selection: $puafMethod) {
+                        ForEach(0..<puafMethodOptions.count, id: \.self) { index in
+                            Text(puafMethodOptions[index])
                         }
-                    }.disabled(kfd != 0)
+                    }.pickerStyle(SegmentedPickerStyle())
+                    .disabled(kfd != 0)
                 }
-                Section {
-                    Picker(selection: $kread_method, label: Text("kread method:")) {
-                        ForEach(0 ..< kread_method_options.count, id: \.self) {
-                            Text(self.kread_method_options[$0])
+                
+                Section(header: Text("Kernel Settings")) {
+                    Picker("kread method:", selection: $kreadMethod) {
+                        ForEach(0..<kreadMethodOptions.count, id: \.self) { index in
+                            Text(kreadMethodOptions[index])
                         }
-                    }.disabled(kfd != 0)
-                }
-                Section {
-                    Picker(selection: $kwrite_method, label: Text("kwrite method:")) {
-                        ForEach(0 ..< kwrite_method_options.count, id: \.self) {
-                            Text(self.kwrite_method_options[$0])
+                    }.pickerStyle(SegmentedPickerStyle())
+                    .disabled(kfd != 0)
+                    
+                    Picker("kwrite method:", selection: $kwriteMethod) {
+                        ForEach(0..<kwriteMethodOptions.count, id: \.self) { index in
+                            Text(kwriteMethodOptions[index])
                         }
-                    }.disabled(kfd != 0)
+                    }.pickerStyle(SegmentedPickerStyle())
+                    .disabled(kfd != 0)
                 }
+                
                 Section {
-                    HStack {
-                        Button("kopen") {
-                            puaf_pages = puaf_pages_options[puaf_pages_index]
-                            kfd = do_kopen(UInt64(puaf_pages), UInt64(puaf_method), UInt64(kread_method), UInt64(kwrite_method))
+                    HStack(spacing: 20) {
+                        Button("Open exploit") {
+                            kfd = do_kopen(UInt64(puafPages), UInt64(puafMethod), UInt64(kreadMethod), UInt64(kwriteMethod))
                             do_fun(kfd)
-//                            execCmd(args: [CommandLine.arguments[0], "whoami"])
-                        }.disabled(kfd != 0).frame(minWidth: 0, maxWidth: .infinity)
-                        Button("kclose") {
+                        }.disabled(kfd != 0)
+                        Button("Close exploit") {
                             do_kclose(kfd)
-                            puaf_pages = 0
                             kfd = 0
-                        }.disabled(kfd == 0).frame(minWidth: 0, maxWidth: .infinity)
-                        Button("respring") {
-                            puaf_pages = 0
+                        }.disabled(kfd == 0)
+                        Button("Respring") {
                             kfd = 0
                             do_respring()
-                        }.frame(minWidth: 0, maxWidth: .infinity)
-                    }.buttonStyle(.bordered)
-                }.listRowBackground(Color.clear)
-                if kfd != 0 {
-                    Section {
-                        VStack {
-                            Text("Success!").foregroundColor(.green)
-                            Text("Look at output in Xcode")
-                        }.frame(minWidth: 0, maxWidth: .infinity)
-                    }.listRowBackground(Color.clear)
+                        }
+                        .accentColor(.red)
+                    }
+                    .buttonStyle(BorderlessButtonStyle())
                 }
-<<<<<<< Updated upstream
-            }.navigationBarTitle(Text("kfd"), displayMode: .inline)
-=======
+                
+                if kfd != 0 {
+                    Section(header: Text("Status")) {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Success!")
+                                .font(.headline)
+                                .foregroundColor(.green)
+                            Text("View output in Xcode")
+                                .foregroundColor(.gray)
+                        }
+                    }
+                }
                 
                 Section(header: Text("Other Actions")) {
                     Button("Hide Dock") {
@@ -90,16 +85,15 @@ struct ContentView: View {
                     }
                     .buttonStyle(BorderlessButtonStyle())
                     Button("Enable Dynamic Island") {
-                        gibmebar(kfd)
-                    }
-                    .buttonStyle(BorderlessButtonStyle())
-                    
+                                          gibmebar(kfd)
+                                      }
+                                      .buttonStyle(BorderlessButtonStyle())
                 }
             }
             .navigationBarTitle("Kernel Exploit", displayMode: .inline)
             .accentColor(.green) // Highlight the navigation bar elements in green
->>>>>>> Stashed changes
         }
+        .foregroundColor(.white) // Set the default text color to black
     }
 }
 
