@@ -231,7 +231,7 @@ u64 phystokv(struct kfd* kfd, u64 pa)
         }
     }
 
-//    assert(!((pa < gPhysBase) || ((pa - gPhysBase) >= gPhysSize)));
+    assert(!((pa < gPhysBase) || ((pa - gPhysBase) >= gPhysSize)));
     return pa - gPhysBase + gVirtBase;
 }
 

@@ -7,19 +7,40 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		212762BF2A7574040070E6A5 /* fun.m in Sources */ = {isa = PBXBuildFile; fileRef = 212762B42A7574040070E6A5 /* fun.m */; };
+		212762C02A7574040070E6A5 /* grant_full_disk_access.m in Sources */ = {isa = PBXBuildFile; fileRef = 212762B52A7574040070E6A5 /* grant_full_disk_access.m */; };
+		212762C12A7574040070E6A5 /* helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 212762B62A7574040070E6A5 /* helpers.m */; };
+		212762C22A7574040070E6A5 /* thanks_opa334dev_htrowii.m in Sources */ = {isa = PBXBuildFile; fileRef = 212762B72A7574040070E6A5 /* thanks_opa334dev_htrowii.m */; };
+		212762C32A7574040070E6A5 /* krw.c in Sources */ = {isa = PBXBuildFile; fileRef = 212762B82A7574040070E6A5 /* krw.c */; };
+		212762C42A7574040070E6A5 /* offsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 212762B92A7574040070E6A5 /* offsets.m */; };
+		212762C52A7574040070E6A5 /* vnode.c in Sources */ = {isa = PBXBuildFile; fileRef = 212762BA2A7574040070E6A5 /* vnode.c */; };
+		212762C62A7574040070E6A5 /* proc.c in Sources */ = {isa = PBXBuildFile; fileRef = 212762BB2A7574040070E6A5 /* proc.c */; };
 		297BA1092A310AE100D1E51A /* kfdApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297BA1082A310AE100D1E51A /* kfdApp.swift */; };
 		297BA10B2A310AE100D1E51A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297BA10A2A310AE100D1E51A /* ContentView.swift */; };
 		297BA10D2A310AE200D1E51A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 297BA10C2A310AE200D1E51A /* Assets.xcassets */; };
 		297BA1112A310AE200D1E51A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 297BA1102A310AE200D1E51A /* Preview Assets.xcassets */; };
-		C806988E2A71436A001A593E /* helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C806988A2A71436A001A593E /* helpers.m */; };
-		C806988F2A71436A001A593E /* AAAA.bin in Resources */ = {isa = PBXBuildFile; fileRef = C806988C2A71436A001A593E /* AAAA.bin */; };
-		C80698902A71436A001A593E /* fun.m in Sources */ = {isa = PBXBuildFile; fileRef = C806988D2A71436A001A593E /* fun.m */; };
-		C872D7DB2A723E9D006BEC32 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = C872D7DA2A723E9D006BEC32 /* test.swift */; };
-		C8843C232A724AA900CA0DC9 /* SwiftUtils in Frameworks */ = {isa = PBXBuildFile; productRef = C8843C222A724AA900CA0DC9 /* SwiftUtils */; };
-		C8843C262A724BC100CA0DC9 /* CBindings in Resources */ = {isa = PBXBuildFile; fileRef = C8843C252A724BC100CA0DC9 /* CBindings */; };
+		E50F4B6C2A75BF2A00535DDA /* vm_unaligned_copy_switch_race.c in Sources */ = {isa = PBXBuildFile; fileRef = E50F4B6B2A75BF2A00535DDA /* vm_unaligned_copy_switch_race.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		212762AC2A7573CB0070E6A5 /* static_info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = static_info.h; sourceTree = "<group>"; };
+		212762AD2A7573CB0070E6A5 /* dynamic_info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dynamic_info.h; sourceTree = "<group>"; };
+		212762AF2A7574040070E6A5 /* thanks_opa334dev_htrowii.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = thanks_opa334dev_htrowii.h; sourceTree = "<group>"; };
+		212762B02A7574040070E6A5 /* vnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vnode.h; sourceTree = "<group>"; };
+		212762B12A7574040070E6A5 /* proc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = proc.h; sourceTree = "<group>"; };
+		212762B22A7574040070E6A5 /* offsets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = offsets.h; sourceTree = "<group>"; };
+		212762B32A7574040070E6A5 /* krw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = krw.h; sourceTree = "<group>"; };
+		212762B42A7574040070E6A5 /* fun.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fun.m; sourceTree = "<group>"; };
+		212762B52A7574040070E6A5 /* grant_full_disk_access.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = grant_full_disk_access.m; sourceTree = "<group>"; };
+		212762B62A7574040070E6A5 /* helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = helpers.m; sourceTree = "<group>"; };
+		212762B72A7574040070E6A5 /* thanks_opa334dev_htrowii.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = thanks_opa334dev_htrowii.m; sourceTree = "<group>"; };
+		212762B82A7574040070E6A5 /* krw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = krw.c; sourceTree = "<group>"; };
+		212762B92A7574040070E6A5 /* offsets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = offsets.m; sourceTree = "<group>"; };
+		212762BA2A7574040070E6A5 /* vnode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vnode.c; sourceTree = "<group>"; };
+		212762BB2A7574040070E6A5 /* proc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = proc.c; sourceTree = "<group>"; };
+		212762BC2A7574040070E6A5 /* fun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fun.h; sourceTree = "<group>"; };
+		212762BD2A7574040070E6A5 /* helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = helpers.h; sourceTree = "<group>"; };
+		212762BE2A7574040070E6A5 /* grant_full_disk_access.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = grant_full_disk_access.h; sourceTree = "<group>"; };
 		2948BA6E2A3162FD00B2ED3C /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		2948BA6F2A31630800B2ED3C /* info.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = info.h; sourceTree = "<group>"; };
 		2948BA702A31631000B2ED3C /* krkw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = krkw.h; sourceTree = "<group>"; };
@@ -39,16 +60,8 @@
 		297BA1102A310AE200D1E51A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		29A358F32A43B53300C297A1 /* smith.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = smith.h; sourceTree = "<group>"; };
 		29A765292A393FCB006617E8 /* perf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = perf.h; sourceTree = "<group>"; };
-		29E9572E2A6AFDA9005C43C0 /* static_info.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = static_info.h; sourceTree = "<group>"; };
-		29E9572F2A6AFDB6005C43C0 /* dynamic_info.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dynamic_info.h; sourceTree = "<group>"; };
-		C80698892A71436A001A593E /* helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = helpers.h; sourceTree = "<group>"; };
-		C806988A2A71436A001A593E /* helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = helpers.m; sourceTree = "<group>"; };
-		C806988C2A71436A001A593E /* AAAA.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = AAAA.bin; sourceTree = "<group>"; };
-		C806988D2A71436A001A593E /* fun.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fun.m; sourceTree = "<group>"; };
-		C80698912A714947001A593E /* fun.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fun.h; sourceTree = "<group>"; };
-		C872D7DA2A723E9D006BEC32 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
-		C8843C252A724BC100CA0DC9 /* CBindings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CBindings; path = kfd/CBindings; sourceTree = SOURCE_ROOT; };
-		E57194E82A73642C00FDD68F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		E50F4B6A2A75BF2A00535DDA /* vm_unaligned_copy_switch_race.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vm_unaligned_copy_switch_race.h; sourceTree = "<group>"; };
+		E50F4B6B2A75BF2A00535DDA /* vm_unaligned_copy_switch_race.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = vm_unaligned_copy_switch_race.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,25 +69,52 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C8843C232A724AA900CA0DC9 /* SwiftUtils in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		212762AB2A7573CB0070E6A5 /* info */ = {
+			isa = PBXGroup;
+			children = (
+				212762AC2A7573CB0070E6A5 /* static_info.h */,
+				212762AD2A7573CB0070E6A5 /* dynamic_info.h */,
+			);
+			path = info;
+			sourceTree = "<group>";
+		};
+		212762AE2A7574040070E6A5 /* fun */ = {
+			isa = PBXGroup;
+			children = (
+				212762AF2A7574040070E6A5 /* thanks_opa334dev_htrowii.h */,
+				212762B02A7574040070E6A5 /* vnode.h */,
+				212762B12A7574040070E6A5 /* proc.h */,
+				212762B22A7574040070E6A5 /* offsets.h */,
+				212762B32A7574040070E6A5 /* krw.h */,
+				212762B42A7574040070E6A5 /* fun.m */,
+				212762B52A7574040070E6A5 /* grant_full_disk_access.m */,
+				212762B62A7574040070E6A5 /* helpers.m */,
+				212762B72A7574040070E6A5 /* thanks_opa334dev_htrowii.m */,
+				212762B82A7574040070E6A5 /* krw.c */,
+				212762B92A7574040070E6A5 /* offsets.m */,
+				212762BA2A7574040070E6A5 /* vnode.c */,
+				212762BB2A7574040070E6A5 /* proc.c */,
+				212762BC2A7574040070E6A5 /* fun.h */,
+				212762BD2A7574040070E6A5 /* helpers.h */,
+				212762BE2A7574040070E6A5 /* grant_full_disk_access.h */,
+				E50F4B6A2A75BF2A00535DDA /* vm_unaligned_copy_switch_race.h */,
+				E50F4B6B2A75BF2A00535DDA /* vm_unaligned_copy_switch_race.c */,
+			);
+			path = fun;
+			sourceTree = "<group>";
+		};
 		2948BA6A2A3162C600B2ED3C /* libkfd */ = {
 			isa = PBXGroup;
 			children = (
-				C8843C252A724BC100CA0DC9 /* CBindings */,
-				C80698912A714947001A593E /* fun.h */,
-				C806988C2A71436A001A593E /* AAAA.bin */,
-				C806988D2A71436A001A593E /* fun.m */,
-				C80698892A71436A001A593E /* helpers.h */,
-				C806988A2A71436A001A593E /* helpers.m */,
 				2948BA6E2A3162FD00B2ED3C /* common.h */,
-				2948BA6B2A3162DE00B2ED3C /* info */,
 				2948BA6F2A31630800B2ED3C /* info.h */,
+				212762AB2A7573CB0070E6A5 /* info */,
 				2948BA6C2A3162E400B2ED3C /* krkw */,
 				2948BA702A31631000B2ED3C /* krkw.h */,
 				29A765292A393FCB006617E8 /* perf.h */,
@@ -82,15 +122,6 @@
 				2948BA712A31631C00B2ED3C /* puaf.h */,
 			);
 			path = libkfd;
-			sourceTree = "<group>";
-		};
-		2948BA6B2A3162DE00B2ED3C /* info */ = {
-			isa = PBXGroup;
-			children = (
-				29E9572F2A6AFDB6005C43C0 /* dynamic_info.h */,
-				29E9572E2A6AFDA9005C43C0 /* static_info.h */,
-			);
-			path = info;
 			sourceTree = "<group>";
 		};
 		2948BA6C2A3162E400B2ED3C /* krkw */ = {
@@ -148,13 +179,12 @@
 		297BA1072A310AE100D1E51A /* kfd */ = {
 			isa = PBXGroup;
 			children = (
-				E57194E82A73642C00FDD68F /* Info.plist */,
 				297BA10C2A310AE200D1E51A /* Assets.xcassets */,
 				297BA10A2A310AE100D1E51A /* ContentView.swift */,
 				2965065D2A31565B0025D1A7 /* kfd-Bridging-Header.h */,
 				297BA10E2A310AE200D1E51A /* kfd.entitlements */,
 				297BA1082A310AE100D1E51A /* kfdApp.swift */,
-				C872D7DA2A723E9D006BEC32 /* test.swift */,
+				212762AE2A7574040070E6A5 /* fun */,
 				2948BA6A2A3162C600B2ED3C /* libkfd */,
 				2965065E2A31565B0025D1A7 /* libkfd.h */,
 				297BA10F2A310AE200D1E51A /* Preview Content */,
@@ -186,9 +216,6 @@
 			dependencies = (
 			);
 			name = kfd;
-			packageProductDependencies = (
-				C8843C222A724AA900CA0DC9 /* SwiftUtils */,
-			);
 			productName = kfd;
 			productReference = 297BA1052A310AE100D1E51A /* kfd.app */;
 			productType = "com.apple.product-type.application";
@@ -218,9 +245,6 @@
 				Base,
 			);
 			mainGroup = 297BA0FC2A310AE100D1E51A;
-			packageReferences = (
-				C8843C212A724AA900CA0DC9 /* XCRemoteSwiftPackageReference "SwiftUtils" */,
-			);
 			productRefGroup = 297BA1062A310AE100D1E51A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -237,8 +261,6 @@
 			files = (
 				297BA1112A310AE200D1E51A /* Preview Assets.xcassets in Resources */,
 				297BA10D2A310AE200D1E51A /* Assets.xcassets in Resources */,
-				C8843C262A724BC100CA0DC9 /* CBindings in Resources */,
-				C806988F2A71436A001A593E /* AAAA.bin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,11 +271,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				212762C02A7574040070E6A5 /* grant_full_disk_access.m in Sources */,
+				212762BF2A7574040070E6A5 /* fun.m in Sources */,
+				E50F4B6C2A75BF2A00535DDA /* vm_unaligned_copy_switch_race.c in Sources */,
 				297BA10B2A310AE100D1E51A /* ContentView.swift in Sources */,
-				C80698902A71436A001A593E /* fun.m in Sources */,
 				297BA1092A310AE100D1E51A /* kfdApp.swift in Sources */,
-				C872D7DB2A723E9D006BEC32 /* test.swift in Sources */,
-				C806988E2A71436A001A593E /* helpers.m in Sources */,
+				212762C12A7574040070E6A5 /* helpers.m in Sources */,
+				212762C62A7574040070E6A5 /* proc.c in Sources */,
+				212762C32A7574040070E6A5 /* krw.c in Sources */,
+				212762C52A7574040070E6A5 /* vnode.c in Sources */,
+				212762C42A7574040070E6A5 /* offsets.m in Sources */,
+				212762C22A7574040070E6A5 /* thanks_opa334dev_htrowii.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,7 +411,6 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = kfd/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -394,13 +421,12 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kfd.rebug;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kfd.personal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -426,7 +452,6 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = kfd/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -437,13 +462,12 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kfd.rebug;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kfd.personal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -476,25 +500,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		C8843C212A724AA900CA0DC9 /* XCRemoteSwiftPackageReference "SwiftUtils" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/pinauten/SwiftUtils";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		C8843C222A724AA900CA0DC9 /* SwiftUtils */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C8843C212A724AA900CA0DC9 /* XCRemoteSwiftPackageReference "SwiftUtils" */;
-			productName = SwiftUtils;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 297BA0FD2A310AE100D1E51A /* Project object */;
 }

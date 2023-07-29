@@ -59,7 +59,6 @@ void xpc_crasher(char* service_name) {
 
   kern_return_t err = bootstrap_look_up(bootstrap_port, service_name, &service_port);
   if(err != KERN_SUCCESS){
-//    printf("err%i", err);
     printf("unable to look up %s\n", service_name);
     return;
   }
@@ -130,13 +129,12 @@ void xpc_crasher(char* service_name) {
   return;
 }
 
-void respringFrontboard(void) {
-  xpc_crasher("com.apple.frontboard.systemappservices");
-  exit(0);
-}
-
-void respringBackboard(void) {
+void restartBackboard(void) {
   xpc_crasher("com.apple.backboard.TouchDeliveryPolicyServer");
 }
 
-
+void restartFrontboard(void) {
+  // NOTE: This will not kill your app on some versions
+  // You may also need to exit(0) afterwards
+  xpc_crasher("com.apple.frontboard.systemappservices");
+}

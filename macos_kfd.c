@@ -2,6 +2,7 @@
  * Copyright (c) 2023 Félix Poulin-Bélanger. All rights reserved.
  */
 
+#define TARGET_MACOS 1
 #include "kfd/libkfd.h"
 
 int main(void)

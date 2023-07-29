@@ -103,7 +103,7 @@ void kwrite_dup_kwrite_u64(struct kfd* kfd, u64 kaddr, u64 new_value)
     u64 fileproc_uaddr = kfd->kwrite.krkw_object_uaddr;
     volatile struct fileproc* fp = (volatile struct fileproc*)(fileproc_uaddr);
 
-    const bool allow_retry = true;
+    const bool allow_retry = false;
 
     do {
         u64 old_value = 0;

