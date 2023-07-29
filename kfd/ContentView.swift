@@ -6,7 +6,6 @@ import SwiftUI
 private let dynamicPath = "/var/containers/Shared/SystemGroup/systemgroup.com.apple.mobilegestaltcache/Library/Caches/com.apple.MobileGestalt.plist"
 
 struct ContentView: View {
-    @AppStorage(DynamicKeys.originalDeviceSubType.rawValue) private var originalDeviceSubType: Int = 0
     init() {
     }
     
@@ -63,9 +62,10 @@ struct ContentView: View {
                             kfd = do_kopen(UInt64(puaf_pages), UInt64(puaf_method), UInt64(kread_method), UInt64(kwrite_method))
                             do_fun()
                         }.disabled(kfd != 0).frame(minWidth: 0, maxWidth: .infinity)
+                        
                         Button("enable dynamic cow") {
-                            plistChange(plistPath: dynamicPath, key: "ArtworkDeviceSubType", value: 2532) //hardcode to fix bug
-                        }.disabled(kfd != 0).frame(minWidth: 0, maxWidth: .infinity)
+                            plistChange(plistPath: dynamicPath, key: "ArtworkDeviceSubType", value: 2556) //hardcode to fix bug
+                        }.frame(minWidth: 0, maxWidth: .infinity)
 
                         Button("kclose") {
                             do_kclose()
@@ -116,28 +116,19 @@ func plistChange(plistPath: String, key: String, value: Int) {
     if overwriteFile(originPath: plistPath, replacementData: newData) {
         // all actions completed
         DispatchQueue.main.asyncAfter(deadline: .now()){
-            respring()
+            do_respring();
         }
     } else {
         // something went wrong
       //  shouldAlertPlistCorrupted = true
     }
 }
-enum DynamicKeys: String, CaseIterable{
-    case isEnabled = "isEnabled"
-    case currentSet = "currentSet"
-    case originalDeviceSubType = "OriginalDeviceSubType"
-}
+
 
 extension UserDefaults {
-    func resetAppState(){
-        DynamicKeys.allCases.forEach{
-            removeObject(forKey: $0.rawValue)
-        }
-    }
+   
 }
 func overwriteFile(originPath: String, replacementData: Data) -> Bool {
-    @AppStorage(DynamicKeys.originalDeviceSubType.rawValue)  var originalDeviceSubType: Int = 0
 #if false
     let documentDirectory = FileManager.default.urls(
         for: .documentDirectory,
@@ -204,23 +195,4 @@ func overwriteFile(originPath: String, replacementData: Data) -> Bool {
     print(Date())
     return true
 }
-
-func respring(){
-    UIImpactFeedbackGenerator(style: .soft).impactOccurred()
-
-        let view = UIView(frame: UIScreen.main.bounds)
-        view.backgroundColor = .black
-        view.alpha = 0
-
-        UIApplication.shared.connectedScenes.map({ $0 as? UIWindowScene }).compactMap({ $0 }).first!.windows.first!.addSubview(view)
-        UIView.animate(withDuration: 0.2, delay: 0, animations: {
-            view.alpha = 1
-        })
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
-            respring()
-        })
-}
-
-
 

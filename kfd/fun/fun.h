@@ -11,5 +11,5 @@
 #include <stdio.h>
 
 int do_fun(void);
-
+void do_respring();
 #endif /* fun_h */
