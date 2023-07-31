@@ -174,25 +174,47 @@ func overwriteFile(originPath: String, replacementData: Data) -> Bool {
     print(Date())
     for chunkOff in stride(from: 0, to: replacementData.count, by: 0x4000) {
         print(String(format: "%lx", chunkOff))
+//        if chunkOff % 0x40000 == 0 {
+//            updateProgress(total: false, progress: Double(chunkOff))
+//        }
         let dataChunk = replacementData[chunkOff..<min(replacementData.count, chunkOff + 0x4000)]
         var overwroteOne = false
         for _ in 0..<2 {
-            let overwriteSucceeded = dataChunk.withUnsafeBytes { dataChunkBytes in
-                return unaligned_copy_switch_race(
-                    fd, Int64(chunkOff), dataChunkBytes.baseAddress, dataChunkBytes.count, false)
-            }
-            if overwriteSucceeded {
+              let overwriteSucceeded = dataChunk.withUnsafeBytes { dataChunkBytes in
+                    return funVnodeOverwriteWithBytes(
+                        dynamicPath, Int64(chunkOff), dataChunkBytes.baseAddress, dataChunkBytes.count, true)
+              }
+//        let dataChunk = fontData[chunkOff..<min(fontData.count, chunkOff + 0x4000)]
+//        var overwroteOne = false
+//        print(pathToTargetFont, chunkOff, dataChunk.count)
+//        for _ in 0..<2 {
+//            let overwriteSucceeded = dataChunk.withUnsafeBytes { dataChunkBytes in
+//                return funVnodeOverwriteWithBytes(
+//                    pathToTargetFont,
+//                    Int64(chunkOff),
+//                    dataChunkBytes.baseAddress?.bindMemory(to: UInt8.self, capacity: dataChunkBytes.count),
+//                    dataChunkBytes.count,
+//                    true
+//                )
+//            }
+              if overwriteSucceeded != 0 {
                 overwroteOne = true
                 break
+              }
+//              print("try again?!")
+//              sleep(1)
+                break
             }
-            print("try again?!")
-        }
         guard overwroteOne else {
-            print("Failed to overwrite")
-            return false
+           // sendImportMessage(.failure("can't overwrite"))
+            print("try again?!")
+            return false;
+         //   return
         }
     }
-    print(Date())
-    return true
-}
 
+  //  updateProgress(total: false, progress: Double(replacementData.count))
+    //sendImportMessage(.success)
+    print(Date())
+    return false;
+}

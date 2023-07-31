@@ -14,6 +14,8 @@
 #include <sys/stat.h>
 #include <string.h>
 #include <sys/mman.h>
+#include <Foundation/Foundation.h>
+#include <aio.h>
 
 uint64_t getVnodeAtPath(char* filename) {
     int file_index = open(filename, O_RDONLY);
@@ -29,7 +31,6 @@ uint64_t getVnodeAtPath(char* filename) {
     uint64_t vnode_pac = kread64(fileglob + off_fg_data);
     uint64_t vnode = vnode_pac | 0xffffff8000000000;
     
-    printf("[i] %s vnode: 0x%llx\n", filename, vnode);
     close(file_index);
     
     return vnode;
@@ -57,11 +58,28 @@ uint64_t funVnodeHide(char* filename) {
     //exist test (should not be exist
     printf("[i] %s access ret: %d\n", filename, access(filename, F_OK));
     
-    //show file
-    v_flags = kread32(vnode + off_vnode_v_flag);
-    kwrite32(vnode + off_vnode_v_flag, (v_flags &= ~VISSHADOW));
+    //restore vnode iocount, usecount
+    usecount = kread32(vnode + off_vnode_v_usecount);
+    iocount = kread32(vnode + off_vnode_v_iocount);
+    if(usecount > 0)
+        kwrite32(vnode + off_vnode_v_usecount, usecount - 1);
+    if(iocount > 0)
+        kwrite32(vnode + off_vnode_v_iocount, iocount - 1);
+
+    return vnode;
+}
+
+uint64_t funVnodeReveal(uint64_t vnode) {
+    //vnode_ref, vnode_get
+    uint32_t usecount = kread32(vnode + off_vnode_v_usecount);
+    uint32_t iocount = kread32(vnode + off_vnode_v_iocount);
+    printf("[i] vnode->usecount: %d, vnode->iocount: %d\n", usecount, iocount);
+    kwrite32(vnode + off_vnode_v_usecount, usecount + 1);
+    kwrite32(vnode + off_vnode_v_iocount, iocount + 1);
     
-    printf("[i] %s access ret: %d\n", filename, access(filename, F_OK));
+    //show file
+    uint32_t v_flags = kread32(vnode + off_vnode_v_flag);
+    kwrite32(vnode + off_vnode_v_flag, (v_flags &= ~VISSHADOW));
     
     //restore vnode iocount, usecount
     usecount = kread32(vnode + off_vnode_v_usecount);
@@ -170,6 +188,7 @@ uint64_t funVnodeRedirectFolder(char* to, char* from) {
     uint8_t to_v_references = kread8(to_vnode + off_vnode_v_references);
     uint32_t to_usecount = kread32(to_vnode + off_vnode_v_usecount);
     uint32_t to_v_kusecount = kread32(to_vnode + off_vnode_v_kusecount);
+    uint64_t orig_to_v_data = kread64(to_vnode + off_vnode_v_data);
     
     uint64_t from_vnode = getVnodeAtPath(from);
     if(from_vnode == -1) {
@@ -192,7 +211,7 @@ uint64_t funVnodeRedirectFolder(char* to, char* from) {
     kwrite8(to_vnode + off_vnode_v_references, to_v_references + 1);
     kwrite64(to_vnode + off_vnode_v_data, from_v_data);
     
-    return 0;
+    return orig_to_v_data;
 }
 
 uint64_t funVnodeOverwriteFile(char* to, char* from) {
@@ -258,6 +277,7 @@ uint64_t funVnodeOverwriteFile(char* to, char* from) {
     }
     
     memcpy(to_mapped, from_mapped, from_file_size);
+    printf("[i] msync ret: %d\n", msync(to_mapped, to_file_size, MS_SYNC));
     
     munmap(from_mapped, from_file_size);
     munmap(to_mapped, to_file_size);
@@ -268,5 +288,246 @@ uint64_t funVnodeOverwriteFile(char* to, char* from) {
     close(from_file_index);
     close(to_file_index);
 
+    return 0;
+}
+
+uint64_t funVnodeIterateByPath(char* dirname) {
+    
+    uint64_t vnode = getVnodeAtPath(dirname);
+    if(vnode == -1) {
+        printf("[-] Unable to get vnode, path: %s\n", dirname);
+        return -1;
+    }
+    
+    uint64_t vp_nameptr = kread64(vnode + off_vnode_v_name);
+    uint64_t vp_name = kread64(vp_nameptr);
+    
+    printf("[i] vnode->v_name: %s\n", &vp_name);
+    
+    //get child directory
+    
+    uint64_t vp_namecache = kread64(vnode + off_vnode_v_ncchildren_tqh_first);
+    printf("[i] vnode->v_ncchildren.tqh_first: 0x%llx\n", vp_namecache);
+    if(vp_namecache == 0)
+        return 0;
+    
+    while(1) {
+        if(vp_namecache == 0)
+            break;
+        vnode = kread64(vp_namecache + off_namecache_nc_vp);
+        if(vnode == 0)
+            break;
+        vp_nameptr = kread64(vnode + off_vnode_v_name);
+        
+        char vp_name[16];
+        do_kread(vp_nameptr, &vp_name, 16);
+        
+        printf("[i] vnode->v_name: %s, vnode: 0x%llx\n", vp_name, vnode);
+        vp_namecache = kread64(vp_namecache + off_namecache_nc_child_tqe_prev);
+    }
+
+    return 0;
+}
+
+uint64_t funVnodeIterateByVnode(uint64_t vnode) {
+    uint64_t vp_nameptr = kread64(vnode + off_vnode_v_name);
+    uint64_t vp_name = kread64(vp_nameptr);
+    
+    printf("[i] vnode->v_name: %s\n", &vp_name);
+    
+    //get child directory
+    
+    uint64_t vp_namecache = kread64(vnode + off_vnode_v_ncchildren_tqh_first);
+    printf("[i] vnode->v_ncchildren.tqh_first: 0x%llx\n", vp_namecache);
+    if(vp_namecache == 0)
+        return 0;
+    
+    while(1) {
+        if(vp_namecache == 0)
+            break;
+        vnode = kread64(vp_namecache + off_namecache_nc_vp);
+        if(vnode == 0)
+            break;
+        vp_nameptr = kread64(vnode + off_vnode_v_name);
+        
+        char vp_name[16];
+        do_kread(vp_nameptr, &vp_name, 16);
+        
+        printf("[i] vnode->v_name: %s, vnode: 0x%llx\n", vp_name, vnode);
+        vp_namecache = kread64(vp_namecache + off_namecache_nc_child_tqe_prev);
+    }
+
+    return 0;
+}
+
+uint64_t getVnodeVar(void) {
+    
+    //path: /var/mobile/Containers/Data/Application/(UUID)
+    //5
+    const char* path = NSHomeDirectory().UTF8String;
+    
+    uint64_t vnode = getVnodeAtPath(path);
+    if(vnode == -1) {
+        printf("[-] Unable to get vnode, path: %s\n", path);
+        return -1;
+    }
+
+    uint64_t parent_vnode = vnode;
+    for(int i = 0; i < 5; i++) {
+        parent_vnode = kread64(parent_vnode + off_vnode_v_parent) | 0xffffff8000000000;
+    }
+    
+    uint64_t vp_nameptr = kread64(parent_vnode + off_vnode_v_name);
+    char vp_name[16];
+    do_kread(vp_nameptr, &vp_name, 16);
+    
+    printf("[i] vnode->v_name: %s\n", vp_name);
+
+    return parent_vnode;
+}
+
+uint64_t getVnodeVarMobile(void) {
+    
+    //path: /var/mobile/Containers/Data/Application/(UUID)
+    //5 upward, /var/mobile
+    const char* path = NSHomeDirectory().UTF8String;
+    
+    uint64_t vnode = getVnodeAtPath(path);
+    if(vnode == -1) {
+        printf("[-] Unable to get vnode, path: %s\n", path);
+        return -1;
+    }
+
+    uint64_t parent_vnode = vnode;
+    for(int i = 0; i < 4; i++) {
+        parent_vnode = kread64(parent_vnode + off_vnode_v_parent) | 0xffffff8000000000;
+    }
+    
+    uint64_t vp_nameptr = kread64(parent_vnode + off_vnode_v_name);
+    char vp_name[16];
+    do_kread(vp_nameptr, &vp_name, 16);
+
+    return parent_vnode;
+}
+
+uint64_t getVnodePreferences(void) {
+    
+    //path: /var/mobile/Library/Preferences/.GlobalPreferences.plist
+    //1 upward, /var/mobile/Library/Preferences/
+    const char* path = "/var/mobile/Library/Preferences/.GlobalPreferences.plist";
+    
+    uint64_t vnode = getVnodeAtPath(path);
+    if(vnode == -1) {
+        printf("[-] Unable to get vnode, path: %s\n", path);
+        return -1;
+    }
+
+    uint64_t parent_vnode = vnode;
+    for(int i = 0; i < 1; i++) {
+        parent_vnode = kread64(parent_vnode + off_vnode_v_parent) | 0xffffff8000000000;
+    }
+
+    return parent_vnode;
+}
+
+uint64_t getVnodeLibrary(void) {
+    
+    //path: /var/mobile/Library/Preferences/.GlobalPreferences.plist
+    //2 upward, /var/mobile/Library
+    const char* path = "/var/mobile/Library/Preferences/.GlobalPreferences.plist";
+    
+    uint64_t vnode = getVnodeAtPath(path);
+    if(vnode == -1) {
+        printf("[-] Unable to get vnode, path: %s\n", path);
+        return -1;
+    }
+
+    uint64_t parent_vnode = vnode;
+    for(int i = 0; i < 2; i++) {
+        parent_vnode = kread64(parent_vnode + off_vnode_v_parent) | 0xffffff8000000000;
+    }
+    
+    return parent_vnode;
+}
+
+uint64_t findChildVnodeByVnode(uint64_t vnode, char* childname) {
+    uint64_t vp_nameptr = kread64(vnode + off_vnode_v_name);
+    uint64_t vp_name = kread64(vp_nameptr);
+
+    uint64_t vp_namecache = kread64(vnode + off_vnode_v_ncchildren_tqh_first);
+    
+    if(vp_namecache == 0)
+        return 0;
+    
+    while(1) {
+        if(vp_namecache == 0)
+            break;
+        vnode = kread64(vp_namecache + off_namecache_nc_vp);
+        if(vnode == 0)
+            break;
+        vp_nameptr = kread64(vnode + off_vnode_v_name);
+        
+        char vp_name[16];
+        do_kread(vp_nameptr, &vp_name, 16);
+        
+        if(strcmp(vp_name, childname) == 0) {
+            return vnode;
+        }
+        vp_namecache = kread64(vp_namecache + off_namecache_nc_child_tqe_prev);
+    }
+
+    return 0;
+}
+
+uint64_t funVnodeRedirectFolderFromVnode(char* to, uint64_t from_vnode) {
+    uint64_t to_vnode = getVnodeAtPath(to);
+    if(to_vnode == -1) {
+        printf("[-] Unable to get vnode, path: %s\n", to);
+        return -1;
+    }
+    
+    uint8_t to_v_references = kread8(to_vnode + off_vnode_v_references);
+    uint32_t to_usecount = kread32(to_vnode + off_vnode_v_usecount);
+    uint32_t to_v_kusecount = kread32(to_vnode + off_vnode_v_kusecount);
+    uint64_t orig_to_v_data = kread64(to_vnode + off_vnode_v_data);
+    
+    //If mount point is different, return -1
+    uint64_t to_devvp = kread64((kread64(to_vnode + off_vnode_v_mount) | 0xffffff8000000000) + off_mount_mnt_devvp);
+    uint64_t from_devvp = kread64((kread64(from_vnode + off_vnode_v_mount) | 0xffffff8000000000) + off_mount_mnt_devvp);
+    if(to_devvp != from_devvp) {
+        printf("[-] mount points of folders are different!");
+        return -1;
+    }
+    
+    uint64_t from_v_data = kread64(from_vnode + off_vnode_v_data);
+    
+    kwrite32(to_vnode + off_vnode_v_usecount, to_usecount + 1);
+    kwrite32(to_vnode + off_vnode_v_kusecount, to_v_kusecount + 1);
+    kwrite8(to_vnode + off_vnode_v_references, to_v_references + 1);
+    kwrite64(to_vnode + off_vnode_v_data, from_v_data);
+    
+    return orig_to_v_data;
+}
+
+uint64_t funVnodeUnRedirectFolder (char* to, uint64_t orig_to_v_data) {
+    uint64_t to_vnode = getVnodeAtPath(to);
+    if(to_vnode == -1) {
+        printf("[-] Unable to get vnode, path: %s\n", to);
+        return -1;
+    }
+    
+    uint8_t to_v_references = kread8(to_vnode + off_vnode_v_references);
+    uint32_t to_usecount = kread32(to_vnode + off_vnode_v_usecount);
+    uint32_t to_v_kusecount = kread32(to_vnode + off_vnode_v_kusecount);
+    
+    kwrite64(to_vnode + off_vnode_v_data, orig_to_v_data);
+    
+    if(to_usecount > 0)
+       kwrite32(to_vnode + off_vnode_v_usecount, to_usecount - 1);
+    if(to_v_kusecount > 0)
+        kwrite32(to_vnode + off_vnode_v_kusecount, to_v_kusecount - 1);
+    if(to_v_references > 0)
+        kwrite8(to_vnode + off_vnode_v_references, to_v_references - 1);
+    
     return 0;
 }

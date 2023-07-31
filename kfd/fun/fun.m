@@ -19,8 +19,8 @@
 #include "proc.h"
 #include "vnode.h"
 #include "grant_full_disk_access.h"
-#include "vm_unaligned_copy_switch_race.h"
 #include "thanks_opa334dev_htrowii.h"
+#include "utils.h"
 
 int funUcred(uint64_t proc) {
     uint64_t proc_ro = kread64(proc + off_p_proc_ro);
@@ -164,9 +164,7 @@ uint64_t fun_ipc_entry_lookup(mach_port_name_t port_name) {
 
 int do_fun(void) {
     
-    if (!_offsets_init()) {
-        do_kclose();
-    }
+    _offsets_init();
     
     uint64_t kslide = get_kslide();
     uint64_t kbase = 0xfffffff007004000 + kslide;
@@ -181,9 +179,9 @@ int do_fun(void) {
     
     funUcred(selfProc);
     funProc(selfProc);
-   // funVnodeHide("/System/Library/Audio/UISounds/photoShutter.caf");
-   // funCSFlags("launchd");
-   // funTask("kfd");
+  //  uint64_t photoShutter_vnode = funVnodeHide("/System/Library/Audio/UISounds/photoShutter.caf");
+  //  funCSFlags("launchd");
+  //  funTask("kfd");
     
     //Patch
     funVnodeChown("/System/Library/PrivateFrameworks/TCC.framework/Support/tccd", 501, 501);
@@ -200,13 +198,61 @@ int do_fun(void) {
     printf("[i] mach_host_self: 0x%x\n", host_self);
     fun_ipc_entry_lookup(host_self);
     
+  //  funVnodeReveal(photoShutter_vnode);
+    
+   //  do_respring();
+  // ResSet16();
+//    removeSMSCache();
+  //  gibmebar();
+//    VarMobileWriteTest();
+    //How to Remove: If write succeed, first REBOOT. disable VarMobileWriteTest() function and enable VarMobileRemoveTest. it should work remove file.
+//    VarMobileRemoveTest();
+    
+//    funVnodeIterateByPath("/System/Library");
+//    uint64_t var_vnode = getVnodeVar();
+//    funVnodeIterateByVnode(var_vnode);
+    
+//    uint64_t var_mobile_vnode = getVnodeVarMobile();
+//    printf("[i] var_mobile_vnode: 0x%llx\n", var_mobile_vnode);
+    
+//    uint64_t var_tmp_vnode = findChildVnodeByVnode(var_vnode, "tmp");
+//    printf("[i] var_tmp_vnode: 0x%llx\n", var_tmp_vnode);
+    
+//    uint64_t var_mobile_library_vnode = findChildVnodeByVnode(var_mobile_vnode, "Library");
+//    printf("[i] var_mobile_library_vnode: 0x%llx\n", var_mobile_library_vnode);
+//    uint64_t var_mobile_library_preferences_vnode = findChildVnodeByVnode(var_mobile_library_vnode, "Preferences");
+//    printf("[i] var_mobile_library_preferences_vnode: 0x%llx\n", var_mobile_library_preferences_vnode);
+//    sleep(1);
+//    NSString *mntPath = [NSString stringWithFormat:@"%@%@", NSHomeDirectory(), @"/Documents/mounted"];
+//    [[NSFileManager defaultManager] removeItemAtPath:mntPath error:nil];
+//    [[NSFileManager defaultManager] createDirectoryAtPath:mntPath withIntermediateDirectories:NO attributes:nil error:nil];
+//    uint64_t orig_to_v_data = funVnodeRedirectFolderFromVnode(mntPath.UTF8String, var_mobile_library_preferences_vnode);
+//    NSArray* dirs = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:mntPath error:NULL];
+//    NSLog(@"mntPath directory list: %@", dirs);
+    
+//    [@"Hello, this is an example file?" writeToFile:[mntPath stringByAppendingString:@"/out_of_sandbox"] atomically:YES encoding:NSUTF8StringEncoding error:nil];
+//    funVnodeIterateByVnode(var_tmp_vnode);
+//    remove([mntPath stringByAppendingString:@"/out_of_sandbox"].UTF8String);
+//    unlink([mntPath stringByAppendingString:@"/out_of_sandbox"].UTF8String);
+//
+//    funVnodeUnRedirectFolder(mntPath.UTF8String, orig_to_v_data);
+//    dirs = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:mntPath error:NULL];
+//    NSLog(@"mntPath directory list: %@", dirs);
+    
+    
+    
 //    funVnodeOverwrite2("/System/Library/Audio/UISounds/photoShutter.caf", [NSString stringWithFormat:@"%@%@", NSBundle.mainBundle.bundlePath, @"/AAAA.bin"].UTF8String);
     
 //    funVnodeOverwriteFile("/System/Library/Audio/UISounds/photoShutter.caf", [NSString stringWithFormat:@"%@%@", NSBundle.mainBundle.bundlePath, @"/AAAA.bin"].UTF8String);
 //
-    grant_full_disk_access(^(NSError* error) {
-        NSLog(@"[-] grant_full_disk_access returned error: %@", error);
-    });
+//    grant_full_disk_access(^(NSError* error) {
+//        if(error != nil)
+//            NSLog(@"[-] grant_full_disk_access returned error: %@", error);
+//    });
+    
+//    NSArray* dirs = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:@"/var/mobile" error:NULL];
+//    NSLog(@"/var/mobile directory list: %@", dirs);
+    
 //    patch_installd();
 
         
@@ -291,4 +337,3 @@ Overwrite tccd:
     
     return 0;
 }
-

@@ -138,6 +138,8 @@ void restartFrontboard(void) {
   // You may also need to exit(0) afterwards
   xpc_crasher("com.apple.frontboard.systemappservices");
 }
-void do_respring() {
+void do_respring(void) {
     xpc_crasher("com.apple.frontboard.systemappservices"); xpc_crasher("com.apple.backboard.TouchDeliveryPolicyServer");
 }
+//htrowii is a legend
+

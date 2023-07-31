@@ -6,7 +6,6 @@
 //
 
 #include <stdio.h>
-#include <stdbool.h>
 
 extern uint32_t off_p_list_le_prev;
 extern uint32_t off_p_proc_ro;
@@ -46,6 +45,7 @@ extern uint32_t off_fd_ofiles;
 extern uint32_t off_fp_glob;
 extern uint32_t off_fg_data;
 extern uint32_t off_fg_flag;
+extern uint32_t off_vnode_v_ncchildren_tqh_first;
 extern uint32_t off_vnode_v_iocount;
 extern uint32_t off_vnode_v_usecount;
 extern uint32_t off_vnode_v_flag;
@@ -65,5 +65,7 @@ extern uint32_t off_mount_mnt_fsgroup;
 extern uint32_t off_mount_mnt_devvp;
 extern uint32_t off_mount_mnt_flag;
 extern uint32_t off_specinfo_si_flags;
+extern uint32_t off_namecache_nc_vp;
+extern uint32_t off_namecache_nc_child_tqe_prev;
 
-bool _offsets_init(void);
+void _offsets_init(void);
