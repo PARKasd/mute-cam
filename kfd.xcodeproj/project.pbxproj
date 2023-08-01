@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		E51381F22A78059D00D167DF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51381EA2A78059D00D167DF /* ContentView.swift */; };
 		E51381F32A78059D00D167DF /* kfdApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51381EB2A78059D00D167DF /* kfdApp.swift */; };
-		E51381F52A78059D00D167DF /* libkfd in Resources */ = {isa = PBXBuildFile; fileRef = E51381EE2A78059D00D167DF /* libkfd */; };
 		E51381F62A78059D00D167DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E51381F12A78059D00D167DF /* Assets.xcassets */; };
 		E513820C2A78065500D167DF /* fun.m in Sources */ = {isa = PBXBuildFile; fileRef = E51381FE2A78065500D167DF /* fun.m */; };
 		E513820D2A78065500D167DF /* vm_unaligned_copy_switch_race.c in Sources */ = {isa = PBXBuildFile; fileRef = E51381FF2A78065500D167DF /* vm_unaligned_copy_switch_race.c */; };
@@ -21,6 +20,8 @@
 		E51382132A78065500D167DF /* offsets.m in Sources */ = {isa = PBXBuildFile; fileRef = E51382052A78065500D167DF /* offsets.m */; };
 		E51382142A78065500D167DF /* vnode.m in Sources */ = {isa = PBXBuildFile; fileRef = E51382062A78065500D167DF /* vnode.m */; };
 		E51382152A78065500D167DF /* proc.c in Sources */ = {isa = PBXBuildFile; fileRef = E51382072A78065500D167DF /* proc.c */; };
+		E513822C2A78A45900D167DF /* AAAA.bin in Resources */ = {isa = PBXBuildFile; fileRef = E51382182A78A45900D167DF /* AAAA.bin */; };
+		E513822D2A78A45900D167DF /* SFUI.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E513821A2A78A45900D167DF /* SFUI.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +29,6 @@
 		E51381EA2A78059D00D167DF /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = kfd/ContentView.swift; sourceTree = "<group>"; };
 		E51381EB2A78059D00D167DF /* kfdApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = kfdApp.swift; path = kfd/kfdApp.swift; sourceTree = "<group>"; };
 		E51381ED2A78059D00D167DF /* kfd.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = kfd.entitlements; path = kfd/kfd.entitlements; sourceTree = "<group>"; };
-		E51381EE2A78059D00D167DF /* libkfd */ = {isa = PBXFileReference; lastKnownFileType = folder; name = libkfd; path = kfd/libkfd; sourceTree = "<group>"; };
 		E51381EF2A78059D00D167DF /* libkfd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = libkfd.h; path = kfd/libkfd.h; sourceTree = "<group>"; };
 		E51381F02A78059D00D167DF /* kfd-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "kfd-Bridging-Header.h"; path = "kfd/kfd-Bridging-Header.h"; sourceTree = "<group>"; };
 		E51381F12A78059D00D167DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = kfd/Assets.xcassets; sourceTree = "<group>"; };
@@ -52,6 +52,21 @@
 		E51382092A78065500D167DF /* vm_unaligned_copy_switch_race.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vm_unaligned_copy_switch_race.h; sourceTree = "<group>"; };
 		E513820A2A78065500D167DF /* helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = helpers.h; sourceTree = "<group>"; };
 		E513820B2A78065500D167DF /* grant_full_disk_access.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = grant_full_disk_access.h; sourceTree = "<group>"; };
+		E51382182A78A45900D167DF /* AAAA.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = AAAA.bin; sourceTree = "<group>"; };
+		E51382192A78A45900D167DF /* krkw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = krkw.h; sourceTree = "<group>"; };
+		E513821A2A78A45900D167DF /* SFUI.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SFUI.ttf; sourceTree = "<group>"; };
+		E513821D2A78A45900D167DF /* kread_sem_open.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kread_sem_open.h; sourceTree = "<group>"; };
+		E513821E2A78A45900D167DF /* kread_kqueue_workloop_ctl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kread_kqueue_workloop_ctl.h; sourceTree = "<group>"; };
+		E51382202A78A45900D167DF /* kwrite_sem_open.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kwrite_sem_open.h; sourceTree = "<group>"; };
+		E51382212A78A45900D167DF /* kwrite_dup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kwrite_dup.h; sourceTree = "<group>"; };
+		E51382232A78A45900D167DF /* static_info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = static_info.h; sourceTree = "<group>"; };
+		E51382242A78A45900D167DF /* dynamic_info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dynamic_info.h; sourceTree = "<group>"; };
+		E51382252A78A45900D167DF /* puaf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = puaf.h; sourceTree = "<group>"; };
+		E51382262A78A45900D167DF /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		E51382282A78A45900D167DF /* smith.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smith.h; sourceTree = "<group>"; };
+		E51382292A78A45900D167DF /* physpuppet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = physpuppet.h; sourceTree = "<group>"; };
+		E513822A2A78A45900D167DF /* perf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = perf.h; sourceTree = "<group>"; };
+		E513822B2A78A45900D167DF /* info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = info.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,9 +87,9 @@
 				E51381F12A78059D00D167DF /* Assets.xcassets */,
 				E51381EA2A78059D00D167DF /* ContentView.swift */,
 				E51381F02A78059D00D167DF /* kfd-Bridging-Header.h */,
+				E51382172A78A45900D167DF /* libkfd */,
 				E51381ED2A78059D00D167DF /* kfd.entitlements */,
 				E51381EB2A78059D00D167DF /* kfdApp.swift */,
-				E51381EE2A78059D00D167DF /* libkfd */,
 				E51381EF2A78059D00D167DF /* libkfd.h */,
 				297BA1062A310AE100D1E51A /* Products */,
 			);
@@ -114,6 +129,69 @@
 			);
 			name = fun;
 			path = kfd/fun;
+			sourceTree = "<group>";
+		};
+		E51382172A78A45900D167DF /* libkfd */ = {
+			isa = PBXGroup;
+			children = (
+				E51382182A78A45900D167DF /* AAAA.bin */,
+				E51382192A78A45900D167DF /* krkw.h */,
+				E513821A2A78A45900D167DF /* SFUI.ttf */,
+				E513821B2A78A45900D167DF /* krkw */,
+				E51382222A78A45900D167DF /* info */,
+				E51382252A78A45900D167DF /* puaf.h */,
+				E51382262A78A45900D167DF /* common.h */,
+				E51382272A78A45900D167DF /* puaf */,
+				E513822A2A78A45900D167DF /* perf.h */,
+				E513822B2A78A45900D167DF /* info.h */,
+			);
+			name = libkfd;
+			path = kfd/libkfd;
+			sourceTree = "<group>";
+		};
+		E513821B2A78A45900D167DF /* krkw */ = {
+			isa = PBXGroup;
+			children = (
+				E513821C2A78A45900D167DF /* kread */,
+				E513821F2A78A45900D167DF /* kwrite */,
+			);
+			path = krkw;
+			sourceTree = "<group>";
+		};
+		E513821C2A78A45900D167DF /* kread */ = {
+			isa = PBXGroup;
+			children = (
+				E513821D2A78A45900D167DF /* kread_sem_open.h */,
+				E513821E2A78A45900D167DF /* kread_kqueue_workloop_ctl.h */,
+			);
+			path = kread;
+			sourceTree = "<group>";
+		};
+		E513821F2A78A45900D167DF /* kwrite */ = {
+			isa = PBXGroup;
+			children = (
+				E51382202A78A45900D167DF /* kwrite_sem_open.h */,
+				E51382212A78A45900D167DF /* kwrite_dup.h */,
+			);
+			path = kwrite;
+			sourceTree = "<group>";
+		};
+		E51382222A78A45900D167DF /* info */ = {
+			isa = PBXGroup;
+			children = (
+				E51382232A78A45900D167DF /* static_info.h */,
+				E51382242A78A45900D167DF /* dynamic_info.h */,
+			);
+			path = info;
+			sourceTree = "<group>";
+		};
+		E51382272A78A45900D167DF /* puaf */ = {
+			isa = PBXGroup;
+			children = (
+				E51382282A78A45900D167DF /* smith.h */,
+				E51382292A78A45900D167DF /* physpuppet.h */,
+			);
+			path = puaf;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -175,8 +253,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E51381F52A78059D00D167DF /* libkfd in Resources */,
+				E513822D2A78A45900D167DF /* SFUI.ttf in Resources */,
 				E51381F62A78059D00D167DF /* Assets.xcassets in Resources */,
+				E513822C2A78A45900D167DF /* AAAA.bin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

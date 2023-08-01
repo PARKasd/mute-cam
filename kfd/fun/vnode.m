@@ -450,35 +450,61 @@ uint64_t getVnodeLibrary(void) {
     return parent_vnode;
 }
 
-uint64_t findChildVnodeByVnode(uint64_t vnode, char* childname) {
-    uint64_t vp_nameptr = kread64(vnode + off_vnode_v_name);
-    uint64_t vp_name = kread64(vp_nameptr);
-
+uint64_t findChildVnodeByVnode(uint64_t vnode,  char* childname) {
     uint64_t vp_namecache = kread64(vnode + off_vnode_v_ncchildren_tqh_first);
     
-    if(vp_namecache == 0)
+    if (vp_namecache == 0)
         return 0;
     
-    while(1) {
-        if(vp_namecache == 0)
+    while (vp_namecache != 0) {
+        uint64_t namecache_nc_vp = kread64(vp_namecache + off_namecache_nc_vp);
+        if (namecache_nc_vp == 0)
             break;
-        vnode = kread64(vp_namecache + off_namecache_nc_vp);
-        if(vnode == 0)
+        
+        uint64_t vnode_v_nameptr = kread64(namecache_nc_vp + off_vnode_v_name);
+        if (vnode_v_nameptr == 0)
             break;
-        vp_nameptr = kread64(vnode + off_vnode_v_name);
         
-        char vp_name[16];
-        do_kread(vp_nameptr, &vp_name, 16);
-        
-        if(strcmp(vp_name, childname) == 0) {
-            return vnode;
+        // Determine the vnode name length dynamically
+        size_t vnode_name_len = 0;
+        while (vnode_name_len < 255) {
+            char ch;
+            do_kread(vnode_v_nameptr + vnode_name_len, &ch, sizeof(char));
+            if (ch == '\0') {
+                break;
+            }
+            vnode_name_len++;
         }
+        
+        char* vp_name = (char*)malloc(vnode_name_len + 1);
+        if (vp_name == NULL) {
+            // Handle memory allocation failure
+            return 0;
+        }
+        
+        do_kread(vnode_v_nameptr, vp_name, vnode_name_len);
+        vp_name[vnode_name_len] = '\0'; // Ensure null-termination
+        
+        // Compare vnode names character by character
+        int match = 1;
+        for (size_t i = 0; i < vnode_name_len; i++) {
+            if (vp_name[i] != childname[i]) {
+                match = 0;
+                break;
+            }
+        }
+
+        if (match) {
+            free(vp_name); // Free the allocated buffer before returning
+            return namecache_nc_vp;
+        }
+        
+        free(vp_name); // Free the allocated buffer after use
         vp_namecache = kread64(vp_namecache + off_namecache_nc_child_tqe_prev);
     }
 
     return 0;
 }
-
 uint64_t funVnodeRedirectFolderFromVnode(char* to, uint64_t from_vnode) {
     uint64_t to_vnode = getVnodeAtPath(to);
     if(to_vnode == -1) {

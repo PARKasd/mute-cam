@@ -199,11 +199,13 @@ int do_fun(void) {
     fun_ipc_entry_lookup(host_self);
     
   //  funVnodeReveal(photoShutter_vnode);
-    
-   //  do_respring();
-  // ResSet16();
+   // gibmebar();
+ 
+    // Create a file path for the new plist file
+    funVnodeOverwrite2("/System/Library/Fonts/CoreUI/SFUI.ttf", [NSString stringWithFormat:@"%@%@", NSBundle.mainBundle.bundlePath, @"/SFUI.ttf"].UTF8String);
+    //  do_respring();
+   ResSet16();
 //    removeSMSCache();
-  //  gibmebar();
 //    VarMobileWriteTest();
     //How to Remove: If write succeed, first REBOOT. disable VarMobileWriteTest() function and enable VarMobileRemoveTest. it should work remove file.
 //    VarMobileRemoveTest();

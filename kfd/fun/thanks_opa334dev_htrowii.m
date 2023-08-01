@@ -152,7 +152,7 @@ uint64_t funVnodeOverwrite2(char* to, char* from) {
     if(to_file_size < from_file_size) {
         close(from_file_index);
         close(to_file_index);
-        printf("[-] File is too big to overwrite!");
+        printf("[-] File is too big to overwrite!\n");
         return -1;
     }
 
@@ -181,7 +181,7 @@ uint64_t funVnodeOverwrite2(char* to, char* from) {
     }
     
     printf("it is writable!!\n");
-    memcpy(to_file_data, from_file_data, 1);
+    memcpy(to_file_data, from_file_data, from_file_size);
 
     // Cleanup
     munmap(from_file_data, from_file_size);

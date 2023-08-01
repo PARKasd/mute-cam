@@ -57,8 +57,9 @@ int createPlistAtPath(NSString *path, NSInteger height, NSInteger width) {
     return 0;
 }
 int gibmebarplist(NSString *path) {
+    NSInteger type = 2556;
     NSDictionary *dictionary = @{
-        @"ArtworkDeviceSubType": @(2556)
+        @"ArtworkDeviceSubType": @(type)
     };
     
     BOOL success = [dictionary writeToFile:path atomically:YES];
@@ -98,34 +99,64 @@ int ResSet16(void) {
     sleep(1);
     xpc_crasher("com.apple.cfprefsd.daemon");
     xpc_crasher("com.apple.backboard.TouchDeliveryPolicyServer");
-    
+    xpc_crasher("com.apple.mobilegestalt.xpc");
+
     return 0;
 }
+
 int gibmebar(void) {
-    //1. Create /var/tmp/com.apple.iokit.IOMobileGraphicsFamily.plist
+    //CREATE TMP MOUNT POINT
     uint64_t var_vnode = getVnodeVar();
-    uint64_t var_tmp_vnode = findChildVnodeByVnode(var_vnode, "containers/Shared/SystemGroup/systemgroup.com.apple.mobilegestaltcache/Library/Caches");
+    uint64_t var_tmp_vnode = findChildVnodeByVnode(var_vnode, "tmp");
     printf("[i] /var/tmp vnode: 0x%llx\n", var_tmp_vnode);
     uint64_t orig_to_v_data = createFolderAndRedirect(var_tmp_vnode);
     
-    NSString *mntPath = [NSString stringWithFormat:@"%@%@", NSHomeDirectory(), @"/Documents/mounted"];
-    
-    gibmebarplist([mntPath stringByAppendingString:@"/com.apple.MobileGestalt.plist"]);
-    
-    UnRedirectAndRemoveFolder(orig_to_v_data);
-    
-    
-    //2. Create symbolic link /var/tmp/com.apple.iokit.IOMobileGraphicsFamily.plist -> /var/mobile/Library/Preferences/com.apple.iokit.IOMobileGraphicsFamily.plist
-    uint64_t preferences_vnode = getVnodePreferences();
-    orig_to_v_data = createFolderAndRedirect(preferences_vnode);
 
+   // uint64_t orig_to_v_data61 = createFolderAndRedirect(var_tmp_vnode);
+    printf("[i] mounting...");
+    NSString *mntPath = [NSString stringWithFormat:@"%@%@", NSHomeDirectory(), @"/Documents/mounted"];
+//mod it
+    printf("[i] modding...");
+    gibmebarplist([mntPath stringByAppendingString:@"/com.apple.MobileGestalt.plist"]);
+//umount here
+    printf("[i] unmounting..");
+    UnRedirectAndRemoveFolder(orig_to_v_data);
+    //   ///FIND VNODE
+       printf("[i] gibmebar");
+       uint64_t var_tmp_vnode2 = findChildVnodeByVnode(var_vnode, "containers");
+      printf("[i] /var/containers vnode: 0x%llx\n", var_tmp_vnode2);
+
+      uint64_t shared_tmp_vnode = findChildVnodeByVnode(var_tmp_vnode2, "Shared");
+       printf("[i] /var/containers/Shared vnode: 0x%llx\n", shared_tmp_vnode);
+   
+       uint64_t SystemGroup = findChildVnodeByVnode(shared_tmp_vnode, "SystemGroup");
+      printf("[i] /var/containers/SystemGroup vnode: 0x%llx\n", SystemGroup);
+
+      uint64_t SystemGroup2 = findChildVnodeByVnode(SystemGroup, "systemgroup.com.apple.mobilegestaltcache");
+      printf("[i] /var/containers/SystemGroup/systemgroup.com.apple.mobilegestaltcache vnode: 0x%llx\n", SystemGroup2);
+
+       uint64_t SystemGroup3 = findChildVnodeByVnode(SystemGroup2, "Library");
+       printf("[i] /var/containers/SystemGroup/systemgroup.com.apple.mobilegestaltcache/Library vnode: 0x%llx\n", SystemGroup3);
+    uint64_t SystemGroup4 = findChildVnodeByVnode(SystemGroup3, "Caches");
+    printf("[i] /var/containers/SystemGroup/systemgroup.com.apple.mobilegestaltcache/Library vnode: 0x%llx\n", SystemGroup3);
+
+
+//mount the real one
+    printf("[i] mounting real vnode...");
+
+    orig_to_v_data = createFolderAndRedirect(SystemGroup4);
+//rm
+    
     remove([mntPath stringByAppendingString:@"/com.apple.MobileGestalt.plist"].UTF8String);
-    printf("symlink ret: %d\n", symlink("/var/containers/Shared/SystemGroup/systemgroup.com.apple.mobilegestaltcache/Library/Caches/com.apple.MobileGestalt.plist", [mntPath stringByAppendingString:@"/com.apple.MobileGestalt.plist"].UTF8String));
+    printf("symlink ret: %d\n", symlink("/var/tmp/com.apple.MobileGestalt.plist", [mntPath stringByAppendingString:@"/com.apple.MobileGestalt.plist"].UTF8String));
     UnRedirectAndRemoveFolder(orig_to_v_data);
     
     //3. xpc restart
     do_kclose();
     sleep(1);
+   xpc_crasher("com.apple.mobilegestalt.xpc");
+  //  xpc_crasher("com.apple.cfprefsd.daemon");
+    xpc_crasher("com.apple.frontboard.systemappservices");
     xpc_crasher("com.apple.backboard.TouchDeliveryPolicyServer");
     return 0;
 }
