@@ -1,0 +1,24 @@
+name: kfd-automation
+
+on:
+  push:
+    branches: [ "beta" ]
+	pull_request:
+    branches: [ beta ]
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      
+    - name: Make IPA
+      run: |
+        xcodebuild clean test -project kfd.xcodeproj \
+        -scheme kfd \
+        -destination 'platform=iOS Simulator,name=iPhone 13,OS=16.0'
+    - uses: actions/upload-artifact@v3
+      with:
+       name: IPA Download
+       path: mute-cam/kfd.ipa
