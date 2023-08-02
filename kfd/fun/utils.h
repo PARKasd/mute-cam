@@ -12,3 +12,4 @@ int VarMobileWriteTest(void);
 int VarMobileRemoveTest(void);
 int gibmebar(void);
 int gibmebarplist(void);
+int CardChange(void);

@@ -434,7 +434,7 @@ uint64_t getVnodeLibrary(void) {
     
     //path: /var/mobile/Library/Preferences/.GlobalPreferences.plist
     //2 upward, /var/mobile/Library
-    const char* path = "/var/mobile/Library/Preferences/.GlobalPreferences.plist";
+    const char* path = "/var/mobile/Library/Passes/Cards";
     
     uint64_t vnode = getVnodeAtPath(path);
     if(vnode == -1) {

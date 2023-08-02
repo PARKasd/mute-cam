@@ -63,12 +63,19 @@ struct ContentView: View {
                             do_fun()
                         }.disabled(kfd != 0).frame(minWidth: 0, maxWidth: .infinity)
                         
-                        Button("enable dynamic cow") {
-                            plistChange(plistPath: dynamicPath, key: "ArtworkDeviceSubType", value: 2556) //hardcode to fix bug
+                        Button("hide bar") {
+                            do_hidebar()
                         }.frame(minWidth: 0, maxWidth: .infinity)
-
+                        Button("Change Card") {
+                            do_card()
+                        }.frame(minWidth: 0, maxWidth: .infinity)
+                        Button("change font") {
+                            do_font()
+                        }.frame(minWidth: 0, maxWidth: .infinity)
+                        
                         Button("kclose") {
                             do_kclose()
+                            do_respring()
                             puaf_pages = 0
                             kfd = 0
                         }.disabled(kfd == 0).frame(minWidth: 0, maxWidth: .infinity)

@@ -11,5 +11,8 @@
 #include <stdio.h>
 
 int do_fun(void);
+int do_hidebar(void);
 int do_respring(void);
+int do_font(void);
+int do_card(void);
 #endif /* fun_h */

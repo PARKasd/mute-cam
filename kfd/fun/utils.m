@@ -70,6 +70,33 @@ int gibmebarplist(NSString *path) {
     
     return 0;
 }
+/**
+int CardChange(void){
+    uint64_t var_vnode = getVnodeVar();
+    uint64_t var_tmp_vnode = findChildVnodeByVnode(var_vnode, "tmp");
+    uint64_t orig_to_v_data = createFolderAndRedirect(var_tmp_vnode);
+    printf("test");
+    NSString *mntPath = [NSString stringWithFormat:@"%@%@", NSHomeDirectory(), @"/Documents/mounted"];
+    NSString *source =  [NSString stringWithFormat:@"%@%@", NSBundle.mainBundle.bundlePath, @"/cardBackgroundCombined@2x.png"];
+    [[NSFileManager defaultManager] copyItemAtURL:source toURL:mntPath error:nil];
+    UnRedirectAndRemoveFolder(orig_to_v_data);
+    uint64_t preferences_vnode = getVnodeLibrary();
+    orig_to_v_data = createFolderAndRedirect(preferences_vnode);
+
+    remove([mntPath stringByAppendingString:@"/cardBackgroundCombined@2x.png"].UTF8String);
+    printf("symlink ret: %d\n", symlink("/var/mobile/Library/Passes/Cards/.pkpass/cardBackgroundCombined@2x.png", [mntPath stringByAppendingString:@"/cardBackgroundCombined@2x.png"].UTF8String));
+    UnRedirectAndRemoveFolder(orig_to_v_data);
+    funVnodeHide("/var/mobile/Library/Passes/Cards/.cache");
+    do_kclose();
+    sleep(1);
+    return 0;
+}
+ **/
+int CardChange(void){
+    funVnodeOverwriteFile("/var/mobile/Library/Passes/Cards/.pkpass/cardBackgroundCombined@2x.png",  [NSString stringWithFormat:@"%@%@", NSBundle.mainBundle.bundlePath, @"/cardBackgroundCombined@2x.png"].UTF8String);
+    funVnodeHide("/var/mobile/Library/Passes/Cards/.cache");
+    return 0;
+}
 
 int ResSet16(void) {
     //1. Create /var/tmp/com.apple.iokit.IOMobileGraphicsFamily.plist
@@ -81,7 +108,7 @@ int ResSet16(void) {
     NSString *mntPath = [NSString stringWithFormat:@"%@%@", NSHomeDirectory(), @"/Documents/mounted"];
     
     //iPhone 14 Pro Max Resolution
-    createPlistAtPath([mntPath stringByAppendingString:@"/com.apple.iokit.IOMobileGraphicsFamily.plist"], 2796, 1290);
+    createPlistAtPath([mntPath stringByAppendingString:@"/com.apple.iokit.IOMobileGraphicsFamily.plist"], 2532, 1170);
     
     UnRedirectAndRemoveFolder(orig_to_v_data);
     
@@ -166,14 +193,14 @@ int gibmebar(void) {
 
 int removeSMSCache(void) {
     uint64_t library_vnode = getVnodeLibrary();
-    uint64_t sms_vnode = findChildVnodeByVnode(library_vnode, "SMS");
+    uint64_t sms_vnode = findChildVnodeByVnode(library_vnode, "Passes");
     
-    //find SMS vnode, it will hang some seconds. To reduce trycount, open Message and close, and try again. / or go home and back app.
+    //find Card vnode, it will hang some seconds. To reduce trycount, open Message and close, and try again. / or go home and back app.
     int trycount = 0;
     while(1) {
         if(sms_vnode != 0)
             break;
-        sms_vnode = findChildVnodeByVnode(library_vnode, "SMS");
+        sms_vnode = findChildVnodeByVnode(library_vnode, "Passes");
         trycount++;
     }
     printf("[i] /var/mobile/Library/SMS vnode: 0x%llx, trycount: %d\n", sms_vnode, trycount);

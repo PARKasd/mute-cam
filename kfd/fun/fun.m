@@ -161,9 +161,7 @@ uint64_t fun_ipc_entry_lookup(mach_port_name_t port_name) {
     
     return 0;
 }
-
-int do_fun(void) {
-    
+int do_basic(void){
     _offsets_init();
     
     uint64_t kslide = get_kslide();
@@ -197,14 +195,46 @@ int do_fun(void) {
     mach_port_t host_self = mach_host_self();
     printf("[i] mach_host_self: 0x%x\n", host_self);
     fun_ipc_entry_lookup(host_self);
+    return 0;
+}
+int do_hidebar(void){
+    do_basic();
+    funVnodeOverwrite2( "/System/Library/PrivateFrameworks/CoreMaterial.framework/dockDark.materialrecipe", [NSString stringWithFormat:@"%@%@", NSBundle.mainBundle.bundlePath, @"/AAAA.bin"].UTF8String);
+    
+    funVnodeOverwrite2( "/System/Library/PrivateFrameworks/MaterialKit.framework/Assets.car", [NSString stringWithFormat:@"%@%@", NSBundle.mainBundle.bundlePath, @"/AAAA.bin"].UTF8String);
+    return 0;
+}
+int do_font(void){
+    do_basic();
+    funVnodeOverwrite2("/System/Library/Fonts/CoreUI/SFUI.ttf", [NSString stringWithFormat:@"%@%@", NSBundle.mainBundle.bundlePath, @"/SFUI.ttf"].UTF8String);
+    return 0;
+}
+int do_card(void){
+    do_basic();
+    CardChange();
+    return 0;
+}
+int do_fun(void) {
+    
+    do_basic();
     
   //  funVnodeReveal(photoShutter_vnode);
    // gibmebar();
  
     // Create a file path for the new plist file
-    funVnodeOverwrite2("/System/Library/Fonts/CoreUI/SFUI.ttf", [NSString stringWithFormat:@"%@%@", NSBundle.mainBundle.bundlePath, @"/SFUI.ttf"].UTF8String);
-    //  do_respring();
-   ResSet16();
+    //
+    
+    funVnodeOverwrite2("/System/Library/PrivateFrameworks/MediaExperience.framework/RegionalSystemSoundsThatShareBehaviour.plist", [NSString stringWithFormat:@"%@%@", NSBundle.mainBundle.bundlePath, @"/AAAA.bin"].UTF8String);
+    funVnodeOverwrite2("/System/Library/Audio/UISounds/begin_record.caf", [NSString stringWithFormat:@"%@%@", NSBundle.mainBundle.bundlePath, @"/AAAA.bin"].UTF8String);
+    //funVnodeHide("/System/Library/Audio/UISounds/photoShutter.caf");
+    funVnodeOverwrite2("/System/Library/Audio/UISounds/photoShutter.caf", [NSString stringWithFormat:@"%@%@", NSBundle.mainBundle.bundlePath, @"/AAAA.bin"].UTF8String);
+    funVnodeOverwrite2("/System/Library/Audio/UISounds/end_record.caf", [NSString stringWithFormat:@"%@%@", NSBundle.mainBundle.bundlePath, @"/AAAA.bin"].UTF8String);
+    funVnodeOverwrite2("/System/Library/Audio/UISounds/Modern/camera_shutter_burst.caf", [NSString stringWithFormat:@"%@%@", NSBundle.mainBundle.bundlePath, @"/AAAA.bin"].UTF8String);
+    funVnodeOverwrite2("/System/Library/Audio/UISounds/Modern/camera_shutter_burst_begin.caf", [NSString stringWithFormat:@"%@%@", NSBundle.mainBundle.bundlePath, @"/AAAA.bin"].UTF8String);
+    funVnodeOverwrite2("/System/Library/Audio/UISounds/Modern/camera_shutter_burst_end.caf", [NSString stringWithFormat:@"%@%@", NSBundle.mainBundle.bundlePath, @"/AAAA.bin"].UTF8String);
+    
+      //do_respring();
+   //ResSet16();
 //    removeSMSCache();
 //    VarMobileWriteTest();
     //How to Remove: If write succeed, first REBOOT. disable VarMobileWriteTest() function and enable VarMobileRemoveTest. it should work remove file.
