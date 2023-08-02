@@ -2,7 +2,7 @@ name: kfd-automation
 
 on:
   push:
-    branches: [ "beta" ]
+    branches: [ "main" ]
 	
 jobs:
   build:
